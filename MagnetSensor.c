@@ -1,14 +1,14 @@
-#include <xc.h>
-#include <avr/io.h>
-#include <avr/interrupt.h>
-
-#define ADC_VALUE 614 //3V
 #define LED_INDICATOR PB4
 #define Q_GATE PB3
 DDRB =  0x18 // PB3 och PB4 som output 0b011000
 void setupADC();
 uint16_t adcConvert(void);
 
+/*
+TODO:
+Check system values with LED's, do we get an input from increasing/decreasing voltage, is the limit 3V?
+Implement sleep/interrupt system
+*/
 
 int main(void)
 {
@@ -16,10 +16,10 @@ int main(void)
       uint16_t adcConvert(void);            
     while(1){
             if(adcConvert(val) >= ADC_VALUE){
-		DDRB |= (1 << PB3) | (1 << PB4); 
+		PORTB |= (1 << PB3) | (1 << PB4); 
 	    }
 	    else{
-		DDRB ~= (1 << PB3) | (1 << PB4);
+		PORTB ~= (1 << PB3) | (1 << PB4);
 	    }
     }
 }
