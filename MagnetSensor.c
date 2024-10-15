@@ -4,7 +4,7 @@
 
 #define ADC_VALUE 614 //3V
 #define LED_INDICATOR PB4
-#defin Q_GATE PB3
+#define Q_GATE PB3
 DDRB =  0x18 // PB3 och PB4 som output 0b011000
 void setupADC();
 uint16_t adcConvert(void);
