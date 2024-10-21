@@ -4,7 +4,7 @@
 
 #define ADC_VALUE 614 //3V
 #define LED_INDICATOR_ON PORTB |= (1 << PB4)
-#defome LED_INDICATOR_OFF PORTB &= ~(1 << PB4)
+#define LED_INDICATOR_OFF PORTB &= ~(1 << PB4)
 #define Q_GATE_ON PORTB |= (1 << PB3)
 #define Q_GATE_OFF PORTB &= ~(1 << PB3)
 //DDRB =  0x018 // PB3 och PB4 som output 0b011000
@@ -13,14 +13,6 @@ uint16_t adcConvert(void);
 sei(); // enable global interrupt
 void WDT_OFF(void); // Turn off WDT
 void idleSleep();
-
-/*
-TODO:
-Check system values with LED's, do we get an input from increasing/decreasing voltage, is the limit 3V?
-Implement sleep/interrupt system
-*/
-
-
 
 
 int main(void)
