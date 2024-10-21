@@ -33,7 +33,7 @@ void setupADC(){
       ADMUX |= (1 << MUX0); //Vcc som ref och ADC1 PB2
       ADCSRA = (1 << ADEN) | (1 << ADIE) | (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2); // ADC Enable, prescaler 128bit
       DIDR0 = (1 << ADC1D); //disable digital input
-      ADIE = (1 << ADIE); // Enable ADC Interrupt
+      ADCSRA = (1 << ADIE); // Enable ADC Interrupt
       
 
 }
