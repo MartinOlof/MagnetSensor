@@ -15,8 +15,7 @@ void setupADC();
 int main(void)
 {
 	setupADC();
-	DDRB |= (1 << PB3) | (1 << PB4);
-	//PORTB &= ~(1 << PB5);
+	DDRB |= (1 << PB3) | (1 << PB4); // Init portarna för output
 	
     while(1)
     {
@@ -36,21 +35,15 @@ int main(void)
 }
 
 void setupADC(){
-	ADMUX |= (0 << MUX0) | (0 << MUX1) | (0 << MUX2) | (0 << MUX3);
-	ADCSRA = (1 << ADEN) | (1 << ADIE) | (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2);
-	//DIDR0 = (1 << ADC1D);
-	ADMUX |= (0 << REFS0);
+	ADMUX |= (0 << MUX0) | (0 << MUX1) | (0 << MUX2) | (0 << MUX3); //ADC0 (PB5) 
+	ADCSRA = (1 << ADEN) | (1 << ADIE) | (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2); //EN ADC, Prescaler 128bit
+	DIDR0 = (1 << ADC1D);
+	ADMUX |= (0 << REFS0); // Spänningsref Vcc
 	
 	
 }
 
 uint16_t adcConvert(){
-	/*ADCSRA |= (1 << ADSC);
-	while (ADCSRA & (1 << ADSC));
-	uint16_t adc_val = (ADCH << 8) | ADCL;
-	
-	
-	return adc_val;*/
 	
 	int Ain, AinLow;
 	ADCSRA |= (1 << ADSC);
