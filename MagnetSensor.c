@@ -35,7 +35,7 @@ int main(void)
 }
 
 void setupADC(){
-	ADMUX |= (0 << MUX0) | (0 << MUX1) | (0 << MUX2) | (0 << MUX3); //ADC0 (PB5) 
+	ADMUX |= (1 << MUX0) | (0 << MUX1) | (0 << MUX2) | (0 << MUX3); //ADC1 (PB2) 
 	ADCSRA = (1 << ADEN) | (1 << ADIE) | (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2); //EN ADC, Prescaler 128bit
 	DIDR0 = (1 << ADC1D);
 	ADMUX |= (0 << REFS0); // Spänningsref Vcc
