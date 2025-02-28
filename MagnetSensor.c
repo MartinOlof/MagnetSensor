@@ -2,7 +2,9 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdint.h>
+#include <util/delay.h>
 
+#define F_CPU 1000000UL // Frekvens till 1MHz
 #define ADC_VALUE 614 // ADC-värde för 3V
 #define LED_IND_ON PORTB |= (1 << PB4) // LED port PÅ
 #define LED_IND_OFF PORTB &= ~(1 << PB4) // LED port AV
@@ -10,7 +12,8 @@
 #define Q_GATE_OFF PORTB &= ~(1 << PB3) // MOSFET Gate AV
 uint16_t adcConvert(); // Funktion för att konvertera adc
 void setupADC(); // Funktion för att starta ADC
-
+void turnOn(); // Funktion för att starta LED och relä
+void turnOff(); // Funktion för att stänga av LED och relä
 
 int main(void)
 {
@@ -22,14 +25,12 @@ int main(void)
 		
 		uint16_t val = adcConvert(); // Lägg värdet i variabeln "val"
 		if(val >= ADC_VALUE){ //Om värdet är större eller mindre än angivna värdet, MOSFET gate och LED startar
-			Q_GATE_ON;
-			LED_IND_ON;
-			Q_GATE_OFF;
-			LED_IND_OFF;
+			turnOn();
+			_delay_ms(30000); // Delay på 30 sekunder
+			turnOff();
 		}
 		else{
-			Q_GATE_OFF;
-			LED_IND_OFF;
+			turnOff();
 		}
     }
 }
@@ -57,4 +58,14 @@ uint16_t adcConvert(){
 	
 	return Ain; // return digitala värdet
 	
+}
+
+void turnOff(){
+	Q_GATE_OFF;
+	LED_IND_OFF;
+}
+
+void turnOn(){
+	Q_GATE_ON;
+	LED_IND_ON;
 }
